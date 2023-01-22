@@ -17,10 +17,11 @@ RUN bundle install --jobs 5
 
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
-RUN bundle exec rails webpacker:install
 
 ADD . $RAILS_ROOT
 ENV PATH=$RAILS_ROOT/bin:${PATH}
+
+RUN bundle exec rails webpacker:install
 
 EXPOSE 3000
 CMD bundle exec rails s -b '0.0.0.0' -p 3000
